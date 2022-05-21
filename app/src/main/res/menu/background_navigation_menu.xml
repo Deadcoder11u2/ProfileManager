@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/codeforces"
+        android:enabled="true"
+        android:icon="@drawable/codeforces"
+        android:title="@string/codeforces" />
+    <item
+        android:id="@+id/leetcode"
+        android:enabled="true"
+        android:icon="@drawable/leetcode"
+        android:title="@string/leetcode" />
+    <item
+        android:id="@+id/codechef"
+        android:enabled="true"
+        android:icon="@drawable/codechef"
+        android:title="@string/codechef" />
+</menu>

@@ -77,8 +77,9 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Please fill all the fields to continue", Toast.LENGTH_LONG).show();
                     return;
                 }
-//                startActivity(new Intent(getApplicationContext(), Homepage.class));
-                createUser(username, password);
+                if(createUser(username, password)) {
+                    startActivity(new Intent(getApplicationContext(), Homepage.class));
+                }
             }
         });
         try {
@@ -91,19 +92,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void createUser(String username, String password) {
+    public boolean createUser(String username, String password) {
+        final boolean[] success = {false};
         mAuth.createUserWithEmailAndPassword(username, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
                     FirebaseUser user = mAuth.getCurrentUser();
                     Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_SHORT).show();
+                    success[0] = true;
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "Internal Server Error", Toast.LENGTH_LONG).show();
                 }
             }
         });
+        return success[0];
     }
 
     public void addUser(User newUser) {
