@@ -1,13 +1,20 @@
 package com.example.profilemanager;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.support.v4.media.session.PlaybackStateCompat;
+import android.view.MenuItem;
+import android.view.View;
 
 import com.example.profilemanager.databinding.ActivityMainBinding;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 public class Homepage extends AppCompatActivity {
 
@@ -16,20 +23,27 @@ public class Homepage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(R.layout.activity_homepage);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
-        binding.coordinatorLayout.setOnClickListener(item -> {
-            switch (item.getId()) {
-                case R.id.codeforces:
-                    replaceFragment(new CodeforcesFragment());
-                    break;
-                case R.id.leetcode:
-                    replaceFragment(new LeetcodeFragment());
-                    break;
-                case R.id.codechef:
-                    replaceFragment(new CodechefFragment());
-                    break;
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener(){
+
+
+
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.codeforces:
+                        replaceFragment(new CodeforcesFragment());
+                        return true;
+                    case R.id.leetcode:
+                        replaceFragment(new LeetcodeFragment());
+                        return true;
+                    case R.id.codechef:
+                        replaceFragment(new CodechefFragment());
+                        return true;
+                }
+                return false;
             }
         });
     }

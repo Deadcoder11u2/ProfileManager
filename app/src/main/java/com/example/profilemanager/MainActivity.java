@@ -29,10 +29,7 @@ import User.User;
 public class MainActivity extends AppCompatActivity {
 
     FirebaseDatabase database;
-
     DatabaseReference ref;
-
-
     private FirebaseAuth mAuth;
 
 
@@ -93,16 +90,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public boolean createUser(String username, String password) {
-        final boolean[] success = {false};
+        boolean[] success = {false};
         mAuth.createUserWithEmailAndPassword(username, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
-                    FirebaseUser user = mAuth.getCurrentUser();
                     Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_SHORT).show();
                     success[0] = true;
                 }
                 else {
+                    System.out.println(task.getException());
                     Toast.makeText(getApplicationContext(), "Internal Server Error", Toast.LENGTH_LONG).show();
                 }
             }

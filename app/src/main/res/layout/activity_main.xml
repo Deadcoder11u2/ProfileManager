@@ -11,8 +11,8 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView"
-        android:layout_width="365dp"
-        android:layout_height="333dp"
+        android:layout_width="369dp"
+        android:layout_height="383dp"
         app:cardBackgroundColor="#8AFFFFFF"
         app:cardCornerRadius="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -29,28 +29,55 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/username"
-                android:layout_width="293dp"
-                android:layout_height="77dp"
-                android:hint="Enter The Username"
+                android:layout_width="271dp"
+                android:layout_height="59dp"
+                android:hint="Enter the username"
                 android:inputType="textEmailAddress"
                 android:paddingEnd="30dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.121" />
+                app:layout_constraintVertical_bias="0.101" />
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/password"
-                android:layout_width="293dp"
-                android:layout_height="77dp"
+                android:layout_width="271dp"
+                android:layout_height="59dp"
                 android:hint="Enter the password"
                 android:inputType="textPassword"
                 android:paddingEnd="30dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.295" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/codeforces"
+                android:layout_width="271dp"
+                android:layout_height="59dp"
+                android:hint="Codeforces username"
+                android:inputType="textEmailAddress"
+                android:paddingEnd="30dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.501" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/codechef"
+                android:layout_width="271dp"
+                android:layout_height="59dp"
+                android:hint="Leetcode username"
+                android:inputType="textEmailAddress"
+                android:paddingEnd="30dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.698" />
 
             <Button
                 android:id="@+id/login"
@@ -59,37 +86,23 @@
                 android:text="LogIn"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.929" />
-
+                app:layout_constraintVertical_bias="0.892" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
     </com.google.android.material.card.MaterialCardView>
-
-<!--    <ImageView-->
-<!--        android:id="@+id/imageView2"-->
-<!--        android:layout_width="467dp"-->
-<!--        android:layout_height="804dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:srcCompat="@drawable/spacebackgroundheader"-->
-
-<!--        />-->
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="248dp"
-        android:layout_height="288dp"
+        android:layout_width="198dp"
+        android:layout_height="247dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.036"
+        app:layout_constraintVertical_bias="0.033"
         app:srcCompat="@drawable/mathlogo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
