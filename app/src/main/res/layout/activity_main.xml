@@ -67,7 +67,7 @@
                 app:layout_constraintVertical_bias="0.501" />
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/codechef"
+                android:id="@+id/leetcode"
                 android:layout_width="271dp"
                 android:layout_height="59dp"
                 android:hint="Leetcode username"

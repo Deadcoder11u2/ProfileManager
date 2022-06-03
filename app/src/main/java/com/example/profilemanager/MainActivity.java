@@ -1,12 +1,15 @@
 package com.example.profilemanager;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +21,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null) {
+            System.out.println(currentUser.getUid() + " " + currentUser.getEmail());
             startActivity(new Intent(getApplicationContext(), Homepage.class));
         }
     }
@@ -48,6 +53,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final int size = 50;
+
+        // Codeforces Username edit box
+        TextInputEditText cfUsername = findViewById(R.id.codeforces);
+
+        // Leetcode Username edit box
+        TextInputEditText leetUsername = findViewById(R.id.leetcode);
 
         // Resizing the drawable image for the username input field
         TextInputEditText username_field = findViewById(R.id.username);
@@ -70,13 +81,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String username = username_field.getText().toString();
                 String password = password_field.getText().toString();
+                String cfID = cfUsername.getText().toString();
+                String leetcodeId = leetUsername.getText().toString();
                 if(!nonNull(username) || !nonNull(password)) {
                     Toast.makeText(getApplicationContext(), "Please fill all the fields to continue", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if(createUser(username, password)) {
-                    startActivity(new Intent(getApplicationContext(), Homepage.class));
-                }
+                createUser(username, password, cfID, leetcodeId);
             }
         });
         try {
@@ -89,41 +100,41 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public boolean createUser(String username, String password) {
-        boolean[] success = {false};
+    public void createUser(String username, String password, String cf, String leetcode) {
         mAuth.createUserWithEmailAndPassword(username, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
                     Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_SHORT).show();
-                    success[0] = true;
                 }
                 else {
-                    System.out.println(task.getException());
                     Toast.makeText(getApplicationContext(), "Internal Server Error", Toast.LENGTH_LONG).show();
                 }
             }
         });
-        return success[0];
-    }
-
-    public void addUser(User newUser) {
-        ref.addValueEventListener(new ValueEventListener() {
+        mAuth.signInWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ref.setValue(newUser);
-                Toast.makeText(getApplicationContext(), "Registration in progress", Toast.LENGTH_SHORT).show();
-            }
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()) {
+                    Toast.makeText(MainActivity.this, "Redirecting to dashboard", Toast.LENGTH_SHORT).show();
+                    changeActivity();
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(getApplicationContext(), "Mobile not connected.....", Toast.LENGTH_SHORT).show();
+                    User user = new User(cf, leetcode);
+                    database.getReference("Users").child(FirebaseAuth.getInstance().getUid()).setValue(user);
+                }
+                else {
+                    Toast.makeText(MainActivity.this, "Login error", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
+    public void changeActivity() {
+        startActivity(new Intent(getApplicationContext(), Homepage.class));
+    }
+
     public void connectToDatabase() {
-        database = FirebaseDatabase.getInstance("https://profilemanager-18026-default-rtdb.firebaseio.com");
+        database = FirebaseDatabase.getInstance();
         ref = database.getReference("UserData");
         mAuth = FirebaseAuth.getInstance();
     }
